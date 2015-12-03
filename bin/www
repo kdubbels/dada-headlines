@@ -29,6 +29,8 @@ var server = http.createServer(app).listen(4000);
 
 var nytimes = require("../controllers/headline.controller.js");
 
+nytimes.makeRequest();
+
 /**
  * Set up Socket.io stuff
  */
@@ -37,7 +39,7 @@ var io = require('socket.io')(server);
 
 io.on('connection', function (socket) {
   console.log("Socket works?");
-  nytimes.nytimes();
+  //nytimes.nytimes();
   // console.log(timesdata);
   socket.emit('news', { hello: 'world' }); //this works. logs to console, look at client
   socket.emit('headline', 'foo' );
