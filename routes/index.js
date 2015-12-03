@@ -3,7 +3,9 @@ var router = express.Router();
 
 var Headline = require("../models/headline");
 
-var ctrlHeadline= require('../controllers/headline.controller');
+var ctrlHeadline = require('../controllers/headline.controller');
+
+// ctrlHeadline.nytimes();
 
 // router.use(function(req, res, next) {
 //     // res.locals.currentUser = req.user;

@@ -5,6 +5,10 @@
     console.log(data);
     socket.emit('my other event', { my: 'data' });
   });
+  socket.on('headline', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+  });
 </script>
 
 

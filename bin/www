@@ -24,6 +24,12 @@ app.set('port', port);
 var server = http.createServer(app).listen(4000);
 
 /**
+ * NYTIMES method invoked here. Unclear if this is best file organization, but not sure how else to get socket to work with Express?
+ */
+
+var nytimes = require("../controllers/headline.controller.js");
+
+/**
  * Set up Socket.io stuff
  */
 
@@ -31,7 +37,10 @@ var io = require('socket.io')(server);
 
 io.on('connection', function (socket) {
   console.log("Socket works?");
-  socket.emit('news', { hello: 'world' });
+  nytimes.nytimes();
+  // console.log(timesdata);
+  socket.emit('news', { hello: 'world' }); //this works. logs to console, look at client
+  socket.emit('headline', 'foo' );
   // socket.emit('stuff', nytimes);
   socket.on('my other event', function (data) {
     console.log(data);
@@ -106,3 +115,4 @@ function onListening() {
   debug('Listening on ' + bind);
   console.log("Listening on port " + addr.port + ", so waay cool!");
 }
+

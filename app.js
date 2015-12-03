@@ -12,6 +12,9 @@ var db = require("./models/db.js");
 
 var app = express();
 
+/* THIS MAY NOT BE THE BEST WAY TO DO THIS? */
+// var nytimes = require("./controllers/headline.controller.js");
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs"); 
@@ -57,6 +60,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

@@ -69,7 +69,8 @@ var headlines_array = [];
 // }, 1000 *60 *60); //update every hour
 
 
-module.exports.nytimes = request('http://www.nytimes.com', function (error, response, html) {
+module.exports.nytimes = function(){
+  request('http://www.nytimes.com', function (error, response, html) {
       if (!error && response.statusCode == 200) {
          var $ = cheerio.load(html);
          $('h2.story-heading').each(function(i, element) {
@@ -98,3 +99,4 @@ module.exports.nytimes = request('http://www.nytimes.com', function (error, resp
       headlines_array.length = 0;
       console.log("Array cleared.");
   });
+};
