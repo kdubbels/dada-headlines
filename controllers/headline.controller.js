@@ -35,9 +35,41 @@ var headlines_array = [];
 //     console.log(joined);
 //     console.log(createHeadline);
 // });
-/*
-setInterval(function(){
-  request('http://www.nytimes.com', function (error, response, html) {
+
+// setInterval(function(){
+//   request('http://www.nytimes.com', function (error, response, html) {
+//       if (!error && response.statusCode == 200) {
+//          var $ = cheerio.load(html);
+//          $('h2.story-heading').each(function(i, element) {
+//              var headline = $(element).text();
+//              var trimmed = headline.trim();
+//              var goodQuotes = trimmed.replace(/[\u2018\u2019]/g, "'");
+//              var splitted = goodQuotes.split(" ");
+//              for (var i = 0; i < splitted.length; i++) {
+//               headlines_array.push(splitted[i]);
+//              }
+//          });
+//       }
+//       var shuffled = shuffle(headlines_array);
+//       var joined = shuffled.join(' ');
+//       var createHeadline = new Headline({
+//         headline: joined,
+//         createdAt: new Date().getTime()
+//       });
+//       createHeadline.save(function (err, createHeadline) {
+//         if (err) {
+//           return console.error(err);
+//         } else {
+//           console.log("Headline added to db.");
+//         }
+//       });
+//       headlines_array.length = 0;
+//       console.log("Array cleared.");
+//   });
+// }, 1000 *60 *60); //update every hour
+
+
+module.exports.nytimes = request('http://www.nytimes.com', function (error, response, html) {
       if (!error && response.statusCode == 200) {
          var $ = cheerio.load(html);
          $('h2.story-heading').each(function(i, element) {
@@ -66,5 +98,3 @@ setInterval(function(){
       headlines_array.length = 0;
       console.log("Array cleared.");
   });
-}, 10000); //update every hour
-*/

@@ -5,16 +5,10 @@
  */
 
 var app = require('../app');
+var express = require('express');
+//var app = express();
 var debug = require('debug')('dada-headlines:server');
 var http = require('http');
-
-// SOCKET STUFF KDKDKD
-var io = require('socket.io')(server);
-
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
-});
-
 
 /**
  * Get port from environment and store in Express.
@@ -27,15 +21,30 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
-console.log(app);
+var server = http.createServer(app).listen(4000);
+
+/**
+ * Set up Socket.io stuff
+ */
+
+var io = require('socket.io')(server);
+
+io.on('connection', function (socket) {
+  console.log("Socket works?");
+  socket.emit('news', { hello: 'world' });
+  // socket.emit('stuff', nytimes);
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
+
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+// server.listen(port);
+// server.on('error', onError);
+// server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
