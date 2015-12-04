@@ -27,9 +27,11 @@ var server = http.createServer(app).listen(4000);
  * NYTIMES method invoked here. Unclear if this is best file organization, but not sure how else to get socket to work with Express?
  */
 
-var nytimes = require("../controllers/headline.controller.js");
+var headlines = require("../controllers/headline.controller.js");
 
-nytimes.makeRequest();
+// setInterval(function(){
+headlines.scrapeHeadlines();
+// }, 3000); //update every hour
 
 /**
  * Set up Socket.io stuff
@@ -39,10 +41,10 @@ var io = require('socket.io')(server);
 
 io.on('connection', function (socket) {
   console.log("Socket works?");
-  //nytimes.nytimes();
-  // console.log(timesdata);
+  var cutup = headlines.retrieveCutup();
+
   socket.emit('news', { hello: 'world' }); //this works. logs to console, look at client
-  socket.emit('headline', 'foo' );
+  socket.emit('headline', cutup );
   // socket.emit('stuff', nytimes);
   socket.on('my other event', function (data) {
     console.log(data);
