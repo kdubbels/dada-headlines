@@ -33,24 +33,33 @@ var headlines = require("../controllers/headline.controller.js");
 headlines.scrapeHeadlines();
 // }, 3000); //update every hour
 
+// var cutup = headlines.retrieveCutup();
+
 /**
  * Set up Socket.io stuff
  */
 
 var io = require('socket.io')(server);
+/* THIS WORKS */
 
 io.on('connection', function (socket) {
   console.log("Socket works?");
-  var cutup = headlines.retrieveCutup();
 
-  socket.emit('news', { hello: 'world' }); //this works. logs to console, look at client
-  socket.emit('headline', cutup );
-  // socket.emit('stuff', nytimes);
+   //socket.emit('news', { hello: 'world' }); //this works. logs to console, look at client
+  socket.emit('news', 'foo' );
   socket.on('my other event', function (data) {
     console.log(data);
   });
 });
 
+// io.sockets.on('connection', function (socket) {
+
+//       console.log("socket works?");
+
+//       socket.emit('headline', {
+//         headline: cutup
+//       });
+// });
 /**
  * Listen on provided port, on all network interfaces.
  */

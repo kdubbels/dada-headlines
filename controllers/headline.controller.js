@@ -122,23 +122,29 @@ function saveHeadline(headline) {
     });
 }
 
-var cutup = {};
+  /* mongodb query to get most recent document in collection */
+  // db.headlines.find().sort({createdAt:-1});
+
+function findMostRecent(res){
+    var callback = function(res){
+        return function(err, data){
+            if (err){
+                console.log('error occured');
+                return;
+            }
+            console.log("fuck");
+        }
+
+    }
+
+    Headline.find({},'headline',callback(res)).limit(1).sort({ createdAt: -1 }).select({ headline: 1 });
+}
+
 
 module.exports.retrieveCutup = function() {
-    // Headline.find().limit(1).sort({ createdAt: -1 }).select({ headline: 1 }).exec(callback);
-    var query = Headline.find().limit(1).sort({ createdAt: -1 }).select({ headline: 1 });
-    query.exec(function (err, headline) {
-        if (err) return handleError(err);
-        cutup.headline = headline[0].headline;
-        console.log("retrieve successful");
-        console.log(cutup);
-        return cutup;   
-    });
-
+    findMostRecent();
 }
 
 module.exports.scrapeHeadlines = function() {
   doScrape();
-  /* mongodb query to get most recent document in collection */
-  // db.headlines.find().sort({createdAt:-1});
 }
