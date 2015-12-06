@@ -34,7 +34,7 @@ headlines.scrapeHeadlines();
 // }, 3000); //update every hour
 
 // var cutup = headlines.retrieveCutup();
-
+var recent = headlines.findMostRecent();
 /**
  * Set up Socket.io stuff
  */
@@ -46,7 +46,7 @@ io.on('connection', function (socket) {
   console.log("Socket works?");
 
    //socket.emit('news', { hello: 'world' }); //this works. logs to console, look at client
-  socket.emit('news', 'foo' );
+  socket.emit('headline', recent.data );
   socket.on('my other event', function (data) {
     console.log(data);
   });

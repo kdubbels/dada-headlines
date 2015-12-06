@@ -1,12 +1,17 @@
 <script src="./javascripts/socket.io.js"></script>
 <script>
   var socket = io.connect('http://localhost:4000');
-  socket.on('news', function (data) {
+  socket.on('headline', function (data) {
     console.log(data);
+
+    var latest = document.body.querySelector('#latest');
+    latest.textContent = data;
+
+
     socket.emit('my other event', { my: 'data' });
   });
- /* 
-  socket.on('headline', function (data) {
+ /*
+  socket.on('news', function (data) {
     console.warn(data);
     socket.emit('my other event', { my: 'data' });
   });
@@ -40,6 +45,9 @@
 
 
 </div>
+
+<div id="latest"></div>
+
 
 <% headlines.forEach(function(headline) { %>
 	

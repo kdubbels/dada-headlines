@@ -125,25 +125,32 @@ function saveHeadline(headline) {
   /* mongodb query to get most recent document in collection */
   // db.headlines.find().sort({createdAt:-1});
 
-function findMostRecent(res){
+var obj = {};
+
+module.exports.findMostRecent = function (res){
+
+
     var callback = function(res){
+      console.log('hello');
         return function(err, data){
             if (err){
                 console.log('error occured');
                 return;
             }
-            console.log("fuck");
+
+             obj.data = data[0].headline;
+            console.log('foo');
+            return obj;
         }
-
     }
-
-    Headline.find({},'headline',callback(res)).limit(1).sort({ createdAt: -1 }).select({ headline: 1 });
+    Headline.find({},'headline',callback(res)).limit(1).sort({ createdAt: -1 }).select({ headline: 1 });   
+    return obj;
 }
 
 
-module.exports.retrieveCutup = function() {
-    findMostRecent();
-}
+// module.exports.retrieveCutup = function() {
+//     findMostRecent();
+// }
 
 module.exports.scrapeHeadlines = function() {
   doScrape();
